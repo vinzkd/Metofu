@@ -58,124 +58,66 @@ void setup() {
 
 
 void loop() {
-  Set_Speed(200);
+  Set_Speed(100);
 
-  // Listen to serial for joystick
-  while (Serial.available()) {
-    char c = Serial.read();
-    command += c;
-    if (c == '\n') { // End of command
-      processJoystick(command);
-      command = ""; // Reset command string
-    }   
-  }
+  // // Listen to serial for joystick
+  // while (Serial.available()) {
+  //   char c = Serial.read();
+  //   command += c;
+  //   if (c == '\n') { // End of command
+  //     processJoystick(command);
+  //     command = ""; // Reset command string
+  //   }   
+  // }
 
 
-//  // Set up serial message receiving
-//  while (Serial.available()) {
-//    char c = Serial.read();
-//    if (c == '\n') { // End of command
-//      processCommand(command);
-//      command = ""; // Reset command string
-//    } else {
-//      command += c; // Append character to command string
-//    }
-//  }
+ // Set up serial message receiving for Chatbot AI
+ while (Serial.available()) {
+   char c = Serial.read();
+   if (c == '\n') { // End of command
+     processCommand(command);
+     command = ""; // Reset command string
+   } else {
+     command += c; // Append character to command string
+   }
+ }
 
   
-  // if (Serial.available() > 0) {
-  //     char command = Serial.read();
-  //     Serial.println(command);
-  //     switch (command) {
-  //         case 'f': // Move Forward
-  //             advance();
-  //             delay(2000);
-  //             stopp();
-  //             break;
-  //         case 'b': // Move Backward
-  //             back();
-  //             delay(2000);
-  //             stopp();
-  //             break;
-  //         case 'l': // Turn Left
-  //             turnL();
-  //             delay(1000);
-  //             stopp();
-  //             break;
-  //         case 'r': // Turn Right
-  //             turnR();
-  //             delay(1000);
-  //             stopp();
-  //             break;
-  //         case 's': // Stop
-  //             stopp();
-  //             break;
-  //         case 'h':
-  //             myservo.write(160);
-  //             delay(100);
-  //             myservo.write(20);
-  //             delay(100);
-  //             myservo.write(85);
-  //         default:
-  //             break;
-  //     }
-  // }
+  if (Serial.available() > 0) {
+      char command = Serial.read();
+      Serial.println(command);
+      switch (command) {
+          case 'f': // Move Forward
+              advance();
+              delay(2000);
+              stop();
+              break;
+          case 'b': // Move Backward
+              back();
+              delay(2000);
+              stop();
+              break;
+          case 'l': // Turn Left
+              turnL();
+              delay(1000);
+              stop();
+              break;
+          case 'r': // Turn Right
+              turnR();
+              delay(1000);
+              stop();
+              break;
+          case 's': // Stop
+              stop();
+              break;
+          case 'h':
+              shakehead();
+              break;
+          default:
+              break;
+      }
+  }
 }
-
-// void loop(){
-//   DM = checkdistance();
-//   if (DM < 30) {
-//     stopp();
-//     Set_Speed(0);
-//     delay(1000);
-//     Detect_obstacle_distance();
-//     if (DL < 50 || DR < 50) {
-//       if (DL > DR) {
-//         myservo.write(90);
-//         turnL();
-//         Set_Speed(200);
-//         delay(200);
-//         advance();
-//         Set_Speed(200);
-
-//       } else {
-//         myservo.write(90);
-//         turnR();
-//         Set_Speed(200);
-//         delay(200);
-//         advance();
-//         Set_Speed(200);
-
-//       }
-
-//     } else {
-//       if (random(1, 10) > 5) {
-//         myservo.write(90);
-//         turnL();
-//         Set_Speed(200);
-//         delay(200);
-//         advance();
-//         Set_Speed(200);
-
-//       } else {
-//         myservo.write(90);
-//         turnR();
-//         Set_Speed(200);
-//         delay(200);
-//         advance();
-//         Set_Speed(200);
-
-//       }
-
-//     }
-
-//   } else {
-//     advance();
-//     Set_Speed(130);
-
-//   }
-
-// }
 
 
 // Robot movement functions
@@ -205,7 +147,7 @@ void turnL() // turning left(dual wheel)
   digitalWrite(pinLB, LOW); // making motor move towards left rear
   digitalWrite(pinLF, HIGH);
 }
-void stopp() // stop
+void stop() // stop
 {
   digitalWrite(pinRB, HIGH);
   digitalWrite(pinRF, HIGH);
@@ -254,22 +196,22 @@ void processCommand(String cmd) {
   { 
     advance();
     delay(2000);
-    stopp();
+    stop();
   } 
   else if (cmd == "move_backward") {
     back();
     delay(2000);
-    stopp();
+    stop();
   } 
   else if (cmd == "turn_left") {
     turnL();
     delay(1000);
-    stopp();
+    stop();
   } 
   else if (cmd == "turn_right") {
     turnR();
     delay(1000);
-    stopp();
+    stop();
   } 
   else if (cmd == "shake_head") {
     shakehead();
@@ -280,25 +222,25 @@ void processCommand(String cmd) {
     while (cmd == "joystick_move_forward") {
       advance();
     }
-    stopp();
+    stop();
   } 
   else if (cmd == "joystick_move_backward") { 
     while (cmd == "joystick_move_backward") {
       back();
     }
-    stopp();
+    stop();
   } 
   else if (cmd == "joystick_turn_left") { 
     while (cmd == "joystick_turn_left") {
       turnL();
     }
-    stopp();
+    stop();
   }
   else if (cmd == "joystick_turn_right") { 
     while (cmd == "joystick_turn_right") {
       turnR();
     }
-    stopp();
+    stop();
   }
   else if (cmd == "joystick_shake_head") {
     shakehead();
@@ -345,7 +287,7 @@ void processJoystick(String cmd) {
     turnR();
   }
   else {
-    stopp();
+    stop();
   }
   
   
@@ -363,7 +305,7 @@ void processJoystick(String cmd) {
   //     back();
   //   }
   //   else {
-  //     stopp();
+  //     stop();
   //   }
   // }
   //
@@ -375,7 +317,7 @@ void processJoystick(String cmd) {
   //     turnR();
   //   }
   //   else {
-  //     stopp();
+  //     stop();
   //   }
   // }
 }
