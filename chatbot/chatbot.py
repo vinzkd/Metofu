@@ -1,9 +1,24 @@
+# # ROS libraries
+# import rclpy                        # ROS libraries for python
+# from rclpy.node import Node         # Node class
+# from geometry_msgs.msg import Twist # Twist message
+# from sensor_msgs.msg import Joy     # Joy message
+
+# Chatbot libraries
 from actions import ActionHandler
 import os
 from openai import OpenAI
 from datetime import datetime
 import re
 import pyaudio
+
+# Python libraries
+import serial
+
+# Names/Variables
+arduinoPath = serial.Serial(port="/dev/ttyACM0", baudrate=9600, timeout=1)  # Path to arduino
+modelName = "openai/gpt-oss-20b:free"       # Name of LLM model to use for chatbot
+
 
 class ChatBot:
     def __init__(self, env_path=".env", history_path="history.txt"):
@@ -22,7 +37,7 @@ class ChatBot:
             history = file.readlines()
         response_chunks = []
         stream = self.client.chat.completions.create(
-            model="openai/gpt-oss-120b:free",
+            model=modelName,
             messages=[
                 {"role": "system", "content": f'''
                 The current time is {self.datetime.now().strftime("%H:%M:%S")}.
@@ -70,15 +85,12 @@ class ChatBot:
             action_response = self.action_handler.handle(response[0], message, arduino, self.client)
             response = action_response or response[1]
             print(response) if action_response else ""
-        #if audio:
-        #    self.stream.feed(response)
-        #    self.stream.play_async()
 
 if __name__ == "__main__":
-    import serial
-    arduino = serial.Serial(port="/dev/ttyACM0", baudrate=9600, timeout=1)
+    arduino = arduinoPath
     bot = ChatBot()
     print(arduino)
+    print(modelName)
     while True:
         message = input("You: ")
         bot.send_message(message, audio=True, arduino=arduino)
