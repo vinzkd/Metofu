@@ -1,5 +1,3 @@
-#include <Arduino.h>
-#line 1 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
 #include <Servo.h>
 #define Lpwm_pin 5 // pin of controlling speed---- ENA of motor driver board
 #define Rpwm_pin 6 // pin of controlling speed---- ENB of motor driver board
@@ -16,33 +14,6 @@ String command = "";
 bool manualMode = false;
 
 
-#line 17 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-float checkdistance();
-#line 28 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void Detect_obstacle_distance();
-#line 41 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void setup();
-#line 60 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void loop();
-#line 124 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void Set_Speed(unsigned char pwm);
-#line 129 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void advance();
-#line 136 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void turnR();
-#line 143 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void turnL();
-#line 150 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void stop();
-#line 157 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void back();
-#line 164 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void shakehead();
-#line 191 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void processCommand(String cmd);
-#line 254 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
-void processJoystick(String cmd);
-#line 17 "/home/vinzk/pino-control/pino-Arduino/pino-Arduino.ino"
 float checkdistance() {
   digitalWrite(A1, LOW);
   delayMicroseconds(2);
@@ -140,8 +111,9 @@ void loop() {
               stop();
               break;
           case 'h':
-            shakehead();
-            break;
+              Serial.println("Shaking head");
+              shakehead();
+              break;
           default:
               break;
       }
@@ -350,4 +322,3 @@ void processJoystick(String cmd) {
   //   }
   // }
 }
-
