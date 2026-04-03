@@ -40,7 +40,7 @@ void Detect_obstacle_distance() {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Starting");
+  Serial.println("Starting serial monitor\n");
   myservo.attach(A2);
   pinMode(A1, OUTPUT);
   pinMode(A0, INPUT);
@@ -81,112 +81,7 @@ void loop() {
      command += c; // Append character to command string
    }
  }
-
-  
-  if (Serial.available() > 0) {
-      char command = Serial.read();
-      Serial.println(command);
-      switch (command) {
-          case 'f': // Move Forward
-              advance();
-              delay(2000);
-              stop();
-              break;
-          case 'b': // Move Backward
-              back();
-              delay(2000);
-              stop();
-              break;
-          case 'l': // Turn Left
-              turnL();
-              delay(1000);
-              stop();
-              break;
-          case 'r': // Turn Right
-              turnR();
-              delay(1000);
-              stop();
-              break;
-          case 's': // Stop
-              stop();
-              break;
-          case 'h':
-              Serial.println("Shaking head");
-              shakehead();
-              break;
-          default:
-              break;
-      }
-  }
 }
-
-
-// Robot movement functions
-void Set_Speed(unsigned char pwm) // function of setting speed
-{
-  analogWrite(Lpwm_pin, pwm);
-  analogWrite(Rpwm_pin, pwm);
-}
-void advance() //  going forward
-{
-  digitalWrite(pinRB, LOW); // making motor move towards right rear
-  digitalWrite(pinRF, HIGH);
-  digitalWrite(pinLB, LOW); // making motor move towards left rear
-  digitalWrite(pinLF, HIGH);
-}
-void turnR() // turning right(dual wheel)
-{
-  digitalWrite(pinRB, LOW); // making motor move towards right rear
-  digitalWrite(pinRF, HIGH);
-  digitalWrite(pinLB, HIGH);
-  digitalWrite(pinLF, LOW); // making motor move towards left front
-}
-void turnL() // turning left(dual wheel)
-{
-  digitalWrite(pinRB, HIGH);
-  digitalWrite(pinRF, LOW); // making motor move towards right front
-  digitalWrite(pinLB, LOW); // making motor move towards left rear
-  digitalWrite(pinLF, HIGH);
-}
-void stop() // stop
-{
-  digitalWrite(pinRB, HIGH);
-  digitalWrite(pinRF, HIGH);
-  digitalWrite(pinLB, HIGH);
-  digitalWrite(pinLF, HIGH);
-}
-void back() // back up
-{
-  digitalWrite(pinRB, HIGH); // making motor move towards right rear
-  digitalWrite(pinRF, LOW);
-  digitalWrite(pinLB, HIGH); // making motor move towards left rear
-  digitalWrite(pinLF, LOW);
-}
-void shakehead()
-{
-    myservo.write(160);
-    delay(100);
-    myservo.write(20);
-    delay(100);
-    myservo.write(85);
-    myservo.write(160);
-    delay(100);
-    myservo.write(20);
-    delay(100);
-    myservo.write(85);
-    myservo.write(160);
-    delay(100);
-    myservo.write(20);
-    delay(100);
-    myservo.write(85);
-    myservo.write(160);
-    delay(100);
-    myservo.write(20);
-    delay(100);
-    myservo.write(85);
-}
-
-
 
 // Process serial messages
 void processCommand(String cmd) {
@@ -322,3 +217,71 @@ void processJoystick(String cmd) {
   //   }
   // }
 }
+
+// Robot movement functions
+void Set_Speed(unsigned char pwm) // function of setting speed
+{
+  analogWrite(Lpwm_pin, pwm);
+  analogWrite(Rpwm_pin, pwm);
+}
+void advance() //  going forward
+{
+  digitalWrite(pinRB, LOW); // making motor move towards right rear
+  digitalWrite(pinRF, HIGH);
+  digitalWrite(pinLB, LOW); // making motor move towards left rear
+  digitalWrite(pinLF, HIGH);
+}
+void turnR() // turning right(dual wheel)
+{
+  digitalWrite(pinRB, LOW); // making motor move towards right rear
+  digitalWrite(pinRF, HIGH);
+  digitalWrite(pinLB, HIGH);
+  digitalWrite(pinLF, LOW); // making motor move towards left front
+}
+void turnL() // turning left(dual wheel)
+{
+  digitalWrite(pinRB, HIGH);
+  digitalWrite(pinRF, LOW); // making motor move towards right front
+  digitalWrite(pinLB, LOW); // making motor move towards left rear
+  digitalWrite(pinLF, HIGH);
+}
+void stop() // stop
+{
+  digitalWrite(pinRB, HIGH);
+  digitalWrite(pinRF, HIGH);
+  digitalWrite(pinLB, HIGH);
+  digitalWrite(pinLF, HIGH);
+}
+void back() // back up
+{
+  digitalWrite(pinRB, HIGH); // making motor move towards right rear
+  digitalWrite(pinRF, LOW);
+  digitalWrite(pinLB, HIGH); // making motor move towards left rear
+  digitalWrite(pinLF, LOW);
+}
+void shakehead()
+{
+    myservo.write(160);
+    delay(100);
+    myservo.write(20);
+    delay(100);
+    myservo.write(85);
+    myservo.write(160);
+    delay(100);
+    myservo.write(20);
+    delay(100);
+    myservo.write(85);
+    myservo.write(160);
+    delay(100);
+    myservo.write(20);
+    delay(100);
+    myservo.write(85);
+    myservo.write(160);
+    delay(100);
+    myservo.write(20);
+    delay(100);
+    myservo.write(85);
+}
+
+
+
