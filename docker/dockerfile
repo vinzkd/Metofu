@@ -1,0 +1,13 @@
+FROM ros:kilted-ros-base
+
+# Set password to user ubuntu
+RUN yes orange123 | passwd ubuntu
+RUN usermod -aG root ubuntu
+
+# Install necessary python modules 
+RUN apt update && apt install python3-openai python3-serial -y
+
+# Switch to user Ubuntu
+USER ubuntu
+
+
