@@ -1,6 +1,0 @@
-User: hi!
-BMO: Hello! How can I assist you today?
-User: shake your head
-BMO: ~action~shake_head I have shaken my head as requested.
-User: can you try again
-BMO: ~action~shake_head I have shaken my head again as requested.
