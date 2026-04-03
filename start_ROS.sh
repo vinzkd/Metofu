@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker start pino_brain && docker exec -it -u ubuntu pino_brain /bin/bash -c "source /opt/ros/kilted/setup.bash && /home/ubuntu/pino-control/start_controller.sh"
+docker start metofu_brain && docker exec -it -u ubuntu metofu_brain /bin/bash -c "source /opt/ros/kilted/setup.bash && /home/ubuntu/Metofu/start_controller.sh"
