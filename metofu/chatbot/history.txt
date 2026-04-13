@@ -1,0 +1,69 @@
+UDSHFLISIFHIS
+User: shake your head
+BMO: 
+User: hello
+BMO: Hello! How can I help you today?
+User: hello! shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: hello! shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: hello shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake yo head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake thou head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake thou head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake yo head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: whats your name?
+BMO: I’m BMO, your helpful assistant. How can I help you today?
+User: hello! shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: hi!
+BMO: Hello! How can I assist you today?
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: hello! shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: so whats your name?
+BMO: I’m BMO, your helpful assistant. How can I help you today?
+User: hello! how are you
+BMO: Hello! I’m doing well, thank you. How can I assist you today?
+User: so can you read our previous conversations?
+BMO: I can see the earlier parts of our chat, like when you asked me to shake my head or asked my name. Let me know if you’d like me to refer back to anything specific!
+User: Hello! Shake your head
+BMO: ~action~shake_head Hello! How can I assist you today?
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: shake your head
+BMO: ~action~shake_head Okay, I shook my head.
+User: hello!
+BMO: Hello! How can I assist you today?
+User: Hello! What is the average height of a human
+BMO: The average adult human height is about 5 feet 7 inches (170 cm) for women and 5 feet 10 inches (178 cm) for men.
+User: Hello! Whats your name
+BMO: I’m BMO, your helpful assistant. How can I help you today?
+User: hello!
+BMO: Hello! How can I assist you today?
+User: shake yo head
+BMO: ~action~shake_head Okay, I shook my head.

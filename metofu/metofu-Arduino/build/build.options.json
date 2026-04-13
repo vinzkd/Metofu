@@ -1,0 +1,9 @@
+{
+  "additionalFiles": "",
+  "compiler.optimization_flags": "",
+  "customBuildProperties": "",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "/home/vinzk/.arduino15/packages",
+  "otherLibrariesFolders": "/home/vinzk/Arduino/libraries",
+  "sketchLocation": "/home/vinzk/Metofu_ssh/metofu-Arduino"
+}
