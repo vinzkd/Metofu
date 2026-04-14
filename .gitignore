@@ -1,4 +1,5 @@
+__pycache__
+build
 metofu/chatbot/.env
-chatbot/__pycache__
 chatbot/history.txt
 metofu-Arduino/build
