@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
-
 # ROS libraries
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+
+# Chatbot 
+from metofu.chatbot.chatbot import Chatbot
 
 
 class TwistPublisher(Node):
@@ -21,7 +23,7 @@ class TwistPublisher(Node):
         # timer_period = 1.0  # seconds
         # self.timer = self.create_timer(timer_period, self.velocity_publish)
 
-        self.get_logger().info("Twist publisher initialized")
+        self.get_logger().info("Twist chatbot publisher initialized")
 
 
     def velocity_publish(self):
@@ -44,8 +46,10 @@ class TwistPublisher(Node):
 def main(args=None):
     rclpy.init(args=args) 
     node = TwistPublisher()
+    bot = Chatbot()
      
     while True:
+        chatbot() 
         rclpy.spin_once(node)
 
     node.destroy_node()

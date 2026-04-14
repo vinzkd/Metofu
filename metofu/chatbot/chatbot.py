@@ -43,36 +43,7 @@ llmModel = "openai/gpt-oss-120b:free"       # Name of LLM model to use for chatb
 #         self.sleep(0.1)
 
 
-class Move(Node):
-    def __init__(self):
-        super().__init__("chatbotPublisher")
-
-        self.publisher = self.create_publisher(
-            Twist,
-            '/cmd_vel',
-            10
-        )
-
-        self.get_logger().info("Initializing publisher...")
-
-        timer_period = 0.5  # seconds
-
-        self.timer = self.create_timer(timer_period, self.move)
-
-        def move(self):
-            command = Twist()
-            command.linear.x = 0.5
-            command.linear.y = 0.0
-            command.linear.z = 0.0
-            command.angular.x = 0.0
-            command.angular.y = 0.0
-            command.angular.z = 0.0
-
-            self.publisher.publish(command)
-
-
-
-class ChatBot:
+class Chatbot:
     def __init__(self, env_path=".env", history_path="history.txt"):
         print("Initializing Chatbot")
         self.OpenAI = OpenAI
@@ -187,26 +158,9 @@ class ActionHandler:
 
 
 def main(args=None):
-    arduino = arduinoPath
-    bot = ChatBot()
+    bot = Chatbot()
 
-    rclpy.init(args=args)
-    node = Move()
-
-    print(f"Connected to {arduino.name}")
-    print(f"AI Model: {llmModel}")
-    
-    # Thread(target = bot.startChat()).start()
-    # Thread(target = rclpy.spin(node)).start()
-    rclpy.spin(node)
-    node.destroy_node()
-
-    rclpy.shutdown()
-
-    # bot.startChat()
-    # while True:
-    #     message = input("You: ")
-    #     bot.send_message(message, audio=True, arduino=arduino)
+    bot.startChat()
 
 
 if __name__ == "__main__":
