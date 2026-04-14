@@ -21,38 +21,17 @@ from subprocess import run
 arduinoPath = serial.Serial(port="/dev/ttyACM0", baudrate=9600, timeout=1)  # Path to arduino
 llmModel = "openai/gpt-oss-120b:free"       # Name of LLM model to use for chatbot
 
-
-# class metofu_controller(Node):
-#     def __init__(self):
-#         super().__init__("metofu_controller")
-#
-#         self.Twist_subscription = self.create_subscription(
-#                 Twist,                  # Message Type to expect
-#                 '/cmd_vel',             # Topic name to listen to
-#                 self.velocity_callback, # Function to call when message arrives
-#                 10                      # QoS depth
-#         )
-#         self.get_logger().info("Twist Subscriber initialized, waiting for /cmd_vel...")
-#         # self.timer = self.create_timer(0.02, self.main_loop)
-#
-#
-#     def velocity_callback(self, msg):
-#         msg.angular.z = 0
-#         command += "\n"
-#         arduino.write(command.encode())
-#         self.sleep(0.1)
-
-
 class Chatbot:
-    def __init__(self, env_path=".env", history_path="history.txt"):
+    def __init__(self):
         print("Initializing Chatbot")
         self.OpenAI = OpenAI
         self.datetime = datetime
         self.re = re
-        with open(env_path, "r") as file:
-            api_key = file.read().strip()
+        
+        api_key = os.getenv('API_KEY')
         self.client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
-        os.environ["OPENAI_API_KEY"] = api_key  # Insert API_KEY into .env
+
+        history_path = "/home/metofu/history.txt"
         self.history_path = history_path
         self.action_handler = ActionHandler(history_path)
 
@@ -108,53 +87,56 @@ class Chatbot:
             response = [match.group(1), match.group(2)]
 
             # Send detected command to action_handler  NOTE: Idk what the part after action_response = ... line does. Consider deleting
-            
             #action_response = self.action_handler.handle(response[0], message, arduino, self.client)
             #response = action_response or response[1]
             #print(response) if action_response else ""
-
-
             #self.action_handler.handle(response[0], message, arduino, self.client)
+
+
             actionCommand = match.group(1)
 
+            return actionCommand 
+        else:
+            return 0
+
     def startChat(self):
-        while True:
-            message = input("You: ")
-            self.send_message(message, audio=False)
+        message = input("You: ")
+        answer = self.send_message(message, audio=False)
+        return answer
 
 
 
-class ActionHandler:
-    def __init__(self, history_path="history.txt"):
-        self.sleep = sleep
-        self.history_path = history_path
-
-    def send_command(self, command, arduino):
-        command += "\n"
-        arduino.write(command.encode())
-        self.sleep(0.1)
-
-
-    def handle(self, action, message, arduino, client=None):
-        action = action.replace("~action~", "")
-        match action:
-            case "clear_history":
-                file = open(self.history_path, "w")
-                file.close()
-            case "move_forward":
-                self.send_command("move_forward", arduino)
-            case "move_backward":
-                self.send_command("move_backward", arduino)
-            case "turn_left":
-                self.send_command("turn_left", arduino)
-            case "turn_right":
-                self.send_command("turn_right", arduino)
-            # case "stop_moving":
-            #     return self.send_command("stop_moving", arduino)
-            case "shake_head":
-                self.send_command("shake_head", arduino)
-            case _:
-                return "I'm sorry, I don't understand that action."
+# class ActionHandler:
+#     def __init__(self, history_path="history.txt"):
+#         self.sleep = sleep
+#         self.history_path = history_path
+#
+#     def send_command(self, command, arduino):
+#         command += "\n"
+#         arduino.write(command.encode())
+#         self.sleep(0.1)
+#
+#
+#     def handle(self, action, message, arduino, client=None):
+#         action = action.replace("~action~", "")
+#         match action:
+#             case "clear_history":
+#                 file = open(self.history_path, "w")
+#                 file.close()
+#             case "move_forward":
+#                 self.send_command("move_forward", arduino)
+#             case "move_backward":
+#                 self.send_command("move_backward", arduino)
+#             case "turn_left":
+#                 self.send_command("turn_left", arduino)
+#             case "turn_right":
+#                 self.send_command("turn_right", arduino)
+#             # case "stop_moving":
+#             #     return self.send_command("stop_moving", arduino)
+#             case "shake_head":
+#                 self.send_command("shake_head", arduino)
+#             case _:
+#                 return "I'm sorry, I don't understand that action."
 
 
 def main(args=None):

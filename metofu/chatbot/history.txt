@@ -67,3 +67,5 @@ User: hello!
 BMO: Hello! How can I assist you today?
 User: shake yo head
 BMO: ~action~shake_head Okay, I shook my head.
+User: Hello!
+BMO: Hello! How can I assist you today?

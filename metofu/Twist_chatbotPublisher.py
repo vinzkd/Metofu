@@ -26,20 +26,27 @@ class TwistPublisher(Node):
         self.get_logger().info("Twist chatbot publisher initialized")
 
 
-    def velocity_publish(self):
+    def velocity_publish(self, action):
 
         # Not needed values
-        velocity.linear.y = 0.0
-        velocity.linear.z = 0.0
-        velocity.angular.x = 0.0
-        velocity.angular.y = 0.0
+        self.velocity.linear.y = 0.0
+        self.velocity.linear.z = 0.0
+        self.velocity.angular.x = 0.0
+        self.velocity.angular.y = 0.0
 
-        # Values used for car
+        linearx = 0
+        angularz = 0
+        action = action.replace("~action~", "")
+        match action:
+            case "move_forward":
+                linearx = 1.0
+            case "move_backward":
+                linearx = -1.0
 
-        velocity.linear.x = 1.0     # Move forward/backward
-        velocity.angular.z = 0.5    # Turn left/right (+/-)
+        self.velocity.linear.x = linearx     # Move forward/backward (+/-)
+        self.velocity.angular.z = 0.0    # Turn left/right (+/-)
  
-        self.publisher_.publish(velocity)
+        self.publisher_.publish(self.velocity)
 
 
 
@@ -49,8 +56,9 @@ def main(args=None):
     bot = Chatbot()
      
     while True:
-        chatbot() 
-        rclpy.spin_once(node)
+        output = bot.startChat() 
+        node.velocity_publish(output)
+        rclpy.spin_once(node, timeout_sec=0)
 
     node.destroy_node()
     rclpy.shutdown()

@@ -162,9 +162,11 @@ void processTwist(String cmd) {
  
   if (linearX > 0) {
     advance();
+    delay(2000);
   }
   else if (linearX < 0) {
     back();
+    delay(2000);
   }
   else if (angularZ > 0) {
     turnL();
