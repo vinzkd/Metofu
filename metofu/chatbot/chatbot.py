@@ -18,7 +18,6 @@ from time import sleep
 from subprocess import run
 
 # Names/Variables
-arduinoPath = serial.Serial(port="/dev/ttyACM0", baudrate=9600, timeout=1)  # Path to arduino
 llmModel = "openai/gpt-oss-120b:free"       # Name of LLM model to use for chatbot
 
 class Chatbot:
@@ -33,9 +32,8 @@ class Chatbot:
 
         history_path = "/home/metofu/history.txt"
         self.history_path = history_path
-        self.action_handler = ActionHandler(history_path)
 
-    def send_message(self, message, audio=False, arduino=None):
+    def send_message(self, message, audio=False):
         with open(self.history_path, "r") as file:
             history = file.readlines()
         response_chunks = []
@@ -86,13 +84,6 @@ class Chatbot:
         if match:
             response = [match.group(1), match.group(2)]
 
-            # Send detected command to action_handler  NOTE: Idk what the part after action_response = ... line does. Consider deleting
-            #action_response = self.action_handler.handle(response[0], message, arduino, self.client)
-            #response = action_response or response[1]
-            #print(response) if action_response else ""
-            #self.action_handler.handle(response[0], message, arduino, self.client)
-
-
             actionCommand = match.group(1)
 
             return actionCommand 
@@ -110,33 +101,6 @@ class Chatbot:
 #     def __init__(self, history_path="history.txt"):
 #         self.sleep = sleep
 #         self.history_path = history_path
-#
-#     def send_command(self, command, arduino):
-#         command += "\n"
-#         arduino.write(command.encode())
-#         self.sleep(0.1)
-#
-#
-#     def handle(self, action, message, arduino, client=None):
-#         action = action.replace("~action~", "")
-#         match action:
-#             case "clear_history":
-#                 file = open(self.history_path, "w")
-#                 file.close()
-#             case "move_forward":
-#                 self.send_command("move_forward", arduino)
-#             case "move_backward":
-#                 self.send_command("move_backward", arduino)
-#             case "turn_left":
-#                 self.send_command("turn_left", arduino)
-#             case "turn_right":
-#                 self.send_command("turn_right", arduino)
-#             # case "stop_moving":
-#             #     return self.send_command("stop_moving", arduino)
-#             case "shake_head":
-#                 self.send_command("shake_head", arduino)
-#             case _:
-#                 return "I'm sorry, I don't understand that action."
 
 
 def main(args=None):

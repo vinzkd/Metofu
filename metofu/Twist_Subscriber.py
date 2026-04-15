@@ -29,6 +29,8 @@ class TwistSubscriber(Node):
         
         # Velocity in format of linear.x:angular.z
         command = f"{msg.linear.x}:{msg.angular.z}" 
+        command += "\n"
+        arduino.write(command.encode())
 
         self.get_logger().info( f"sent {command}" )
 
