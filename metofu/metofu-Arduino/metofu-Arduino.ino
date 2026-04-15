@@ -154,19 +154,17 @@ void processTwist(String cmd) {
   cmd.trim();  // Remove whitespace
   
   int colon1 = cmd.indexOf(':');
-  int colon2 = cmd.indexOf(':', colon1 + 1);
+  // int colon2 = cmd.indexOf(':', colon1 + 1);
 
   float linearX = cmd.substring(0, colon1).toFloat();
-  float angularZ = cmd.substring(colon1 + 1, colon2).toFloat();
+  float angularZ = cmd.substring(colon1 + 1).toFloat();
   
  
   if (linearX > 0) {
     advance();
-    delay(2000);
   }
   else if (linearX < 0) {
     back();
-    delay(2000);
   }
   else if (angularZ > 0) {
     turnL();
